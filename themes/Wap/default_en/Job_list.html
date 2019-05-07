@@ -1,0 +1,37 @@
+<extend name="Public:base"/>
+
+<block name="main">
+<!--广告-->
+<include file="Public:slide"/>
+
+<!--当前位置-->
+<include file="Public:position"/>
+
+
+<div class="cont">
+	{if $list}
+	<volist name="list" id="r">
+	<dd><em></em>
+		<span><b>Position：</b>{$r.title}</span>
+		<span><b>Number：</b>{$r.num}人</span>
+		<span><b>Education：</b>{$r.education}</span>
+		<span><b>Time：</b>{$r.createtime|toDate=###,'Y-m-d'}</span>
+	</dd>
+	<dt>
+		<p>
+			<strong>Job description：</strong><br/>
+			{$r.jobdes}
+			<br/><br/>
+			<strong>Job requirements：</strong><br/>
+			{$r.requirements}
+		</p>
+		<a href="{$r.url}" class="button">Apply</a>
+	</dt>
+	<hr>
+	</volist>
+	{else}
+		{$catname}
+	{/if}
+	<p class="clear h15"></p>
+</div>
+</block>

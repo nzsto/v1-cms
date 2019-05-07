@@ -1,0 +1,83 @@
+<extend name="Public:base"/>
+
+<block name="main">
+<!--搜索-->
+<include file="Public:search"/>
+
+<!--广告-->
+<include file="Public:slide"/>
+
+<!--当前位置-->
+<include file="Public:position"/>
+
+<div class="cont">
+	<div class="box">
+		<ul class="guest">
+			<form id="job_form" method="post" action="/?m=form&a=job">
+				<li>
+					<input name="username" type="text" placeholder="姓名">
+				</li>
+				<li>
+					<input type="radio" name="sex" value="1">boy&nbsp;&nbsp;
+					<input type="radio" name="sex" value="2">gril
+				</li>
+				<li>
+					<input name="position" type="text" placeholder="Job title">
+				</li>
+				<li>
+					<input name="birthday" type="text" placeholder="Birthday">
+				</li>
+				<li>
+					<input name="idnum" type="text" placeholder="ID number">
+				</li>
+				<li>
+					<input name="address" type="text" placeholder="Present place of residence">
+				</li>
+				<li>
+					<input name="phone" type="text" placeholder="Telephone">
+				</li>
+				<li><input name="email" type="text" placeholder="E-mail"></li>
+				<li>
+					<textarea name="experiences" cols="" rows="" placeholder="work experience"></textarea>
+				</li>
+				<li>
+					<textarea name="self_assessment" cols="" rows="" placeholder="Self-evaluation"></textarea>
+				</li>
+				<li>
+					<div class="input-group">
+						<input name="verifyCode" type="text" class="input-group-field" placeholder="VerifyCode">
+						<span class="input-group-field"><img src="{:U('Wap/Public/verify')}" onClick="this.src='{:U('Public/verify')}?'+Math.random();"></span>
+					</div>
+				<li>
+					<input type="submit" value="Submit" class="button">
+				</li>
+			</form>
+		</ul>
+	</div>
+</div>
+
+<script>
+$("#job_form").submit(function () {
+	var self = $(this);
+	$.post(self.attr("action"), self.serialize(), success, "json");
+	return false;
+
+	function success(data) {
+		if (data.status == 1) {
+			layer.open({
+				content: '提交成功，我们会尽快联系您',
+				style: 'background-color:#09C1FF; color:#fff; border:none;',
+				time: 2
+			});
+			$('#job_form')[0].reset();
+		} else {
+			layer.open({
+				content: data.info,
+				style: 'background-color:#09C1FF; color:#fff; border:none;',
+				time: 2
+			});
+		}
+	}
+});
+</script>
+</block>

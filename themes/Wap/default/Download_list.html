@@ -1,0 +1,30 @@
+<extend name="Public:base"/>
+
+<block name="main">
+<!--搜索-->
+<include file="Public:search"/>
+
+<!--广告-->
+<include file="Public:slide"/>
+
+<!--当前位置-->
+<include file="Public:position"/>
+
+<div class="main">
+	<div class="list_news">
+		<ul>
+			<volist name="list" id="r">
+				<li class="down_li"> <a href="{$r.filepath}" target="_blank" title="{$r[title]|str_cut=###,50}">
+					<h3>{$r[title]|str_cut=###,50}</h3>
+					<p>{$r['content']|str_cut=###,80}</p>
+					<p align="right">发布时间:{$r.createtime|toDate=###,'d/m/Y'}</p>
+				</a>
+				</li>
+			</volist>
+		</ul>
+	</div>
+	<div class="page">
+		{$pages}
+	</div>
+</div>
+</block>

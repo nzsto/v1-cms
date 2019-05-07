@@ -1,0 +1,136 @@
+<extend name="Public:base"/>
+
+
+<block name="main">
+
+<div class="panel panel-info">
+    <div class="panel-heading">修改收货地址（电话号码、手机号选填一项,其余均为必填项）</div>
+    <div class="panel-body">
+        <form id="myform" method="post" action="{:U('User/Address/edit')}" class="form-horizontal">
+            <input type="hidden" name="id" value="{$adr.id}">
+            <div class="form-group">
+                <label class="col-md-2">所在地区</label>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <select name="province" id="province" onchange="area_change(this.value, 1,'province','city','area');" class="form-control" >
+                                <option value="0">请选择省份</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select name="city" onchange="area_change(this.value, 2,'province','city','area');" id="city" class="form-control" >
+                                <option value="0">请选择城市</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select name="area" onchange="area_change(this.value, 3,'province','city','area');" id="area" class="form-control" >
+                                <option value="0">请选择区域</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <script>area_change(0, 0,'province','city','area');</script>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2">详细地址</label>
+                <div class="col-md-6">
+                    <textarea class="form-control" type="text" name="address">{$adr.address}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2">邮政编码</label>
+                <div class="col-md-6">
+                    <input class="form-control" type="text" name="zipcode" value="{$adr.zipcode}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2">收货人姓名</label>
+                <div class="col-md-6">
+                    <input class="form-control" type="text" name="consignee" value="{$adr.consignee}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2">手机号码</label>
+                <div class="col-md-6">
+                    <input class="form-control" type="text" name="mobile" value="{$adr.mobile}">
+                </div>
+            </div>
+            <div class="pure-controls">
+                <label for="cb" class="col-md-offset-2">
+                    <input id="cb" type="checkbox" name="isdefault" value="1" {if $adr['isdefault']==1}checked="checked"{/if}> 设置为默认收货地址
+                </label>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">保存</button>
+                <a class="btn btn-primary" href="javascript:window.history.go(-1);">返回</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    address_change({$adr.id});
+    function address_change(id,doshow){
+        $.ajax({
+            type:"POST",
+            url: "/ajax/address.html?do=get&id="+id,
+            timeout:"4000",
+            dataType:"JSON",
+            success: function(data){
+                if(data.id){
+                    area_change(0, 0,'province','city','area',data.province,data.city,data.area);
+                    $('#address').val(data.address);
+                    $('#zipcode').val(data.zipcode);
+                    $('#consignee').val(data.consignee);
+                    $('#tel').val(data.tel);
+                    $('#email').val(data.email);
+                    $('#mobile').val(data.mobile);
+                    $('#addressid').val(data.id);
+                    $('#address_li_'+data.id+" input").attr("checked",true);
+                    shipping_chose(0);
+                    count_sum();
+                }else{
+                    layer.msg('操作失败!', {
+                        icon: 2,
+                        time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                    });
+                }
+            },
+            error:function(){
+                layer.msg('Link error,操作失败!', {
+                    icon: 2,
+                    time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                });
+            }
+        });
+    }
+
+    $("#myform").submit(function () {
+        var self = $(this);
+        $.post(self.attr("action"), self.serialize(), success, "json");
+        return false;
+
+        function success(data) {
+            if (data.status == 1) {
+                layer.msg(data.info, {
+                    icon: 1,
+                    time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                },function(){
+                    window.location.href="{:U('User/address/index')}";//刷新当前页面.
+                });
+
+            } else {
+                layer.msg(data.info, {
+                    icon: 2,
+                    time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                });
+                $(".reloadverify").click();
+            }
+        }
+    });
+
+</script>
+</block>

@@ -1,0 +1,53 @@
+<extend name="Public:base"/>
+
+<block name="main">
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="thumbnail">
+            <div class="user-img">
+                <a href="{:U('Account/avatar')}">
+                    <img src="{:ltrim($user['avatar'], '.')}" width="150" onerror="this.src='__PUBLIC__/images/default_avatar.jpg'" class="img-circle">
+                </a>
+            </div>
+            <div class="caption">
+                <h3 class="text-center">{$user['username']}</h3>
+                <ul class="nav">
+                    <li>
+                        <i class="fa fa-users"></i>
+                        <span>会员组：{$role[$user['groupid']]['name']}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-8">
+        <div class="panel panel-info">
+            <div class="panel-heading">最近登录信息</div>
+
+            <table class="table">
+                <tr>
+                    <th>注册ip：</th>
+                    <td>{$user['reg_ip']} </td>
+                </tr>
+                <tr>
+                    <th>上次登录ip：</th>
+                    <td>{$user['last_ip']} </td>
+                </tr>
+                <tr>
+                    <th>最后登录：</th>
+                    <td> {$user['last_logintime']|toDate}  </td>
+                </tr>
+                <tr>
+                    <th>注册时间：</th>
+                    <td>{$user['reg_time']|toDate}</td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+</block>

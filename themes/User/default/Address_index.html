@@ -1,0 +1,136 @@
+<extend name="Public:base"/>
+
+
+<block name="main">
+    <style>
+        .box-item{
+            position: relative;
+            padding: 5px;
+            border: 1px solid #D9EDF7;
+        }
+        .box-item.default{
+            background: #D9EDF7;
+        }
+        span.default{
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            padding: 3px 12px;
+        }
+    </style>
+<div class="panel panel-info">
+    <div class="panel-heading">我的收货地址</div>
+    <div class="row" style="padding: 5px;">
+        <volist name="list" id="r">
+            <div class="col-md-4">
+                <div class="box-item{if $r['isdefault']} default{/if}">
+                    <p>姓名:{$r.consignee}</p>
+                    <p>电话:{$r.mobile}</p>
+                    <p>邮编:{$r.zipcode}</p>
+                    <p>地址:{$area[$r['province']]}-{$area[$r['city']]}-{$area[$r['country']]}-{$area[$r['area']]}<br>{$r.address}</p>
+                    <p>
+                        {if $r['isdefault']}
+                        <span class="default bg-primary">默认</span>
+                        {/if}
+
+                        <a class="btn btn-xs btn-primary" href="{:U('Address/edit','id='.$r['id'])}">修改</a>
+                        <a class="btn btn-xs btn-danger" href="javascript:confirm_delete('{:U('Address/delete',array('id'=>$r['id']))}')">删除</a>
+
+                    </p>
+                </div>
+            </div>
+        </volist>
+    </div>
+
+    </div>
+
+    <div class="panel panel-info">
+        <div class="panel-heading">新增收货地址（电话号码、手机号选填一项,其余均为必填项）</div>
+        <div class="panel-body">
+            <form id="myform" method="post" action="{:U('User/Address/add')}" class="form-horizontal">
+
+                <div class="form-group">
+                    <label class="col-md-2">所在地区</label>
+                    <div class="col-md-6">
+                        <div id="areaselect">
+                            <select name="province" id="province" onchange="area_change(this.value, 1,'province','city','area');" class="ddlbox" >
+                                <option value="0">请选择省份</option>
+                            </select>
+                            <select name="city" onchange="area_change(this.value, 2,'province','city','area');" id="city" class="ddlbox" >
+                                <option value="0">请选择城市</option>
+                            </select>
+                            <select name="area" onchange="area_change(this.value, 3,'province','city','area');" id="area" class="ddlbox" >
+                                <option value="0">请选择区域</option>
+                            </select>
+                        </div>
+                        <script>area_change(0, 0,'province','city','area');</script>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2">详细地址</label>
+                    <div class="col-md-6">
+                        <textarea class="form-control" type="text" name="address" value="{$vo.address}"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2">邮政编码</label>
+                    <div class="col-md-6">
+                        <input class="form-control" type="text" name="zipcode" value="{$vo.zipcode}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2">收货人姓名</label>
+                    <div class="col-md-6">
+                        <input class="form-control" type="text" name="consignee" value="{$vo.consignee}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2">手机号码</label>
+                    <div class="col-md-6">
+                        <input class="form-control" type="text" name="mobile" value="{$vo.mobile}">
+                    </div>
+                </div>
+                <div class="pure-controls">
+                    <label for="cb" class="col-md-offset-2">
+                        <input id="cb" type="checkbox" name="isdefault" value="1"> 设置为默认收货地址
+                    </label>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">提交</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+
+    $("#myform").submit(function () {
+        var self = $(this);
+        $.post(self.attr("action"), self.serialize(), success, "json");
+        return false;
+
+        function success(data) {
+            if (data.status == 1) {
+                layer.msg(data.info, {
+                    icon: 1,
+                    time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                },function(){
+                    window.location.reload();//刷新当前页面.
+                });
+
+            } else {
+                layer.msg(data.info, {
+                    icon: 2,
+                    time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                });
+                $(".reloadverify").click();
+            }
+        }
+    });
+
+</script>
+</block>

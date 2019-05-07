@@ -1,0 +1,29 @@
+<extend name="Public:base"/>
+
+<block name="main">
+<include file="Public:header"/>
+<!--搜索-->
+<include file="Public:search"/>
+
+<!--广告-->
+<include file="Public:slide"/>
+
+<!--当前位置-->
+<include file="Public:position"/>
+
+<div class="cont" style="font-size:14px;">
+
+
+<div style="padding:0 10px; font-size:14px;">
+		<notempty name="content">
+			{$content}
+			<else/>
+			{$catname}
+		</notempty>
+	</div>
+
+	<p class="clear h15"></p>
+
+</div>
+<include file="Public:footer"/>
+</block>

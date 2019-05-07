@@ -1,0 +1,82 @@
+<extend name="Public:base"/>
+
+
+<block name="main">
+    <style>
+        .saft-item-lists {
+            margin-bottom: -31px;
+            overflow: hidden;
+        }
+        .safe-item {
+            display: inline-block;
+            display: block;
+            padding: 30px 0;
+            border-bottom: 1px solid #e6e6e6;
+        }
+        .warn-box {
+            background: #fffdee;
+            padding: 5px;
+        }
+        .safe-item .fore1, .safe-item .fore2, .safe-item .fore3 {
+            float: left;
+            height: 32px;
+            line-height: 32px;
+        }
+        .safe-item .fore1 {
+            width: 175px;
+            text-align: left;
+            font-family: \5FAE\8F6F\96C5\9ED1;
+            font-size: 18px;
+            padding-left: 25px;
+        }
+        .safe-item .fore2 {
+            border-left: 1px solid #E6E6E6;
+            width: 450px;
+            height: auto;
+            line-height: 24px;
+            padding: 4px 0 4px 15px;
+        }
+        .safe-item .fore3 {
+            text-align: center;
+            width: 140px;
+        }
+    </style>
+    <div class="saft-item-lists">
+        <div class="u-safe warn-box">
+            <strong>安全级别：</strong>
+            <i id="cla" class="safe-rank04"></i><strong class="rank-text ftx-04">中级</strong>
+            <span class="ftx-04 ml10" id="promptInfo">建议您启动全部安全设置，以保障账户及资金安全。</span>
+            <span style="float:right; cursor:pointer;" class="ftx-01">
+                <a href="/user/paymentpassword/showLoginHistory.action" class="ftx-05">查看登录历史记录<img width="24" height="11" src="//misc.360buyimg.com/jd2008/skin/df/i/myjd-new-ico.png" data-pin-nopin="true"></a>
+            </span>
+        </div>
+
+        <div class="safe-item">
+            <div class="fore1"><s class="icon-01"></s><strong>登录密码</strong></div>
+            <div class="fore2"><span class="ftx-03"></span>
+                <span class="ftx-01">互联网账号存在被盗风险，建议您定期更改密码以保护账户安全。</span></div>
+            <div class="fore3"><a href="/user/validate/updatePassword" class="ftx-05">修改</a></div>
+        </div>
+
+        <div class="safe-item">
+            <div class="fore1"><s class="icon-01"></s><strong>邮箱验证</strong>
+                </div>
+            <div class="fore2">
+                <span class="ftx-03">您验证的邮箱：</span><strong class="ftx-06" id="email">    11*****97@qq.com
+            </strong>
+            </div>
+            <div class="fore3"><a href="/user/validate/updateMail" class="ftx-05">修改</a></div>
+        </div>
+
+        <div class="safe-item">
+            <div class="fore1"><s class="icon-01"></s><strong>手机验证</strong></div>
+            <div class="fore2">
+                <span class="ftx-03">您验证的手机：</span><strong id="mobile" class="ftx-06">    134*****206
+            </strong>&nbsp;&nbsp;
+                <span class="ftx-03">若已丢失或停用，请立即更换，</span><span style="color:#cc0000;">避免账户被盗</span>
+            </div>
+            <div class="fore3"><a href="/user/validate/updateMobile" class="ftx-05">修改</a></div>
+        </div>
+
+    </div>
+</block>

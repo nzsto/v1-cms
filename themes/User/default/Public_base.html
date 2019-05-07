@@ -1,0 +1,171 @@
+<!doctype html>
+<!--[if IE 8 ]><html class="ie8"><![endif]-->
+<!--[if IE 9 ]><html class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html class="w3c"><!--<![endif]-->
+<head>
+<!--[if lt IE 8]>
+<meta http-equiv="refresh" content="0;url=http://{$Think.SERVER.SERVER_NAME}/Public/browser.html">
+<script>location.href="http://{$Think.SERVER.SERVER_NAME}/Public/browser.html";</script>
+<![endif]-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="__STATIC__/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="__STATIC__/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/yzh.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/layout.css">
+
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="__STATIC__/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="__STATIC__/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript" src="__STATIC__/yzh.js"></script>
+<block name="style"></block>
+<title>{$seo_title}-{$site_name}</title>
+</head>
+<body class="page-header-fixed">
+<div class="page-header navbar navbar-fixed-top">
+    <!-- BEGIN HEADER INNER -->
+    <div class="page-header-inner container">
+        <!-- BEGIN LOGO -->
+        <div class="page-logo">
+            <a href="{:U('User/index/index')}">
+                誉字号v1测试站
+            </a>
+            <div class="menu-toggler sidebar-toggler"> </div>
+        </div>
+        <!-- END LOGO -->
+        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
+        <div class="top-menu">
+            <ul class="nav navbar-nav pull-right">
+                <li class="dropdown dropdown-extended dropdown-notification">
+                    <a href="/" target="_blank" title="去首页" class="dropdown-toggle">
+                        <i class="fa fa-home"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                    </ul>
+                </li>
+                <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <i class="fa fa-bell"></i>
+                        <span class="badge badge-default dr_notece_num">0</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="external">
+                            <h3>您有<span class="bold dr_notece_num">0</span>条未读提醒消息</h3>
+                            <a href="/index.php?c=notice&amp;m=go">点击查看</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <i class="fa fa-envelope"></i>
+                        <span class="badge badge-default"> 0 </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="external">
+                            <h3>您没有未读短消息</h3>
+                            <a href="/index.php?c=pm&amp;m=index">点击查看</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown dropdown-user">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <img class="img-circle" src="{if empty($_SESSION['member']['avatar'])}__PUBLIC__/images/default_avatar_32_32.jpg{else}{:ltrim($_SESSION['member']['avatar'], ".")}{/if}">
+                        <span class="username username-hide-on-mobile">{$Think.session.member.username}</span>
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-default">
+                        <li>
+                            <a href="{:U('account/baseinfo')}">
+                                <i class="fa fa-user"></i> 我的资料 </a>
+                        </li>
+                        <li>
+                            <a href="/user/validate/updatePassword">
+                                <i class="fa fa-lock"></i> 修改密码 </a>
+                        </li>
+                        <li>
+                            <a href="{:U('account/avatar')}">
+                                <i class="fa fa-file-picture-o"></i> 上传头像
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/index.php?c=notice&amp;m=go">
+                                <i class="fa fa-bell"></i> 提醒消息
+                                <span class="badge dr_notece_num">0</span>
+                            </a>
+                        </li>
+                        <li class="divider"> </li>
+                        <li>
+                            <a href="{:U('login/logout')}">
+                                <i class="icon-key"></i> 我要退出 </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!-- END TOP NAVIGATION MENU -->
+    </div>
+    <!-- END HEADER INNER -->
+</div>
+
+<div class="container">
+    <div class="page-container">
+        <!--侧边导航-->
+        <div class="page-sidebar">
+            <ul class="page-sidebar-menu  page-header-fixed">
+                <li class="nav-item start">
+                    <a href="{:U('Index/index')}">
+                        <i class="fa fa-home"></i>
+                        <span class="title">后台首页</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="fa fa-shopping-cart"></i><span class="title">财务管理</span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item">
+                            <a href="{:U('User/Order/index')}">
+                                <i class="fa fa-shopping-cart"></i><span class="title">订单查询</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:;" class="nav-link nav-toggle"><i class="fa fa-cogs"></i><span class="title">会员中心</a>
+                    <ul class="sub-menu">
+                        <li class="nav-item">
+                            <a href="{:U('User/Account/baseinfo')}">
+                                <i class="fa fa-cog"></i><span class="title">基本信息</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{:U('User/Account/avatar')}">
+                                <i class="fa fa-file-picture-o"></i><span class="title">修改头像</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/user/validate/updatePassword">
+                                <i class="fa fa-lock"></i><span class="title">修改密码</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{:U('User/Address/index')}">
+                                <i class="fa fa-map-marker"></i><span class="title">我的收货地址</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="page-content-wrapper">
+            <div class="page-content">
+                <block name="main"></block>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
